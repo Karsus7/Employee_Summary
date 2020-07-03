@@ -35,4 +35,4 @@ Tested with Jest.
 
 
 ## Demo
-![demo of app running](https://github.com/Brian-Fairbanks/EmployeeDirectory/blob/master/Assets/teamDemo.gif?raw=true)
+![demo of app running](https://github.com/Karsus7/Employee_Summary/blob/master/Assets/demonstration.gif)
