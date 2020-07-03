@@ -1,4 +1,5 @@
-// This is the actual program. First, there must be a manager, then the user may add as many interns and engineers as they want.
+// This is the actual program. First, there must be a manager,
+// then the user may add as many interns and engineers as they want.
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -14,7 +15,8 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 
 
-
+// Function prompts the user to ask what type of employee you are.
+// (Manager is seperate, it is assumed there is one manager.)
 function getEmployeeType(){
     return inquirer.prompt([
         {
@@ -29,7 +31,7 @@ function getEmployeeType(){
 
 // each employee type (manager, engineer, or intern) has slightly different information
 function getStandardQuestions(role){
-    //standard qeustions to ask all employees
+    //standard questions to ask all employees. See Employee.js/Employee.test.js
     const standardQuestions = [
         {
             type:'input',
@@ -49,7 +51,9 @@ function getStandardQuestions(role){
     ];
 
     let questions;
-    //Engineer
+// Specialized questions for each of the three positions.
+// See 10-OOP activities 20 and 21 for examples of subclasses.
+
     if (role=="Engineer"){
         questions = [...standardQuestions,
         {
@@ -58,7 +62,6 @@ function getStandardQuestions(role){
             name:'github'
         }]
     }
-    //Intern
     else if (role=="Intern"){
         questions = [...standardQuestions,
         {
@@ -67,7 +70,6 @@ function getStandardQuestions(role){
             name:'school'
         }]
     }
-    //Manager
     else if (role=="Manager"){
         questions = [...standardQuestions,
         {
@@ -80,7 +82,7 @@ function getStandardQuestions(role){
     return inquirer.prompt(questions);
 }
 
-// a prompt to determine if the user wants to add more employees
+// Prompt provides "yes or No" question to restart questions to add another employee.
 function addMorePrompt(){
     return inquirer.prompt([
         {
@@ -89,7 +91,6 @@ function addMorePrompt(){
             choices:['Yes',"No"],
             name:'confirm'
         }
-
     ]);
 }
 
@@ -100,7 +101,7 @@ async function run(){
     // loop through the employee creation untill the user says do not add more
     do{
         // Write code to use inquirer to gather information about the development team members,
-        // the first run should always be a manager
+        // The first run must be the Manager, and there can only be one Manager.
         if(!firstRun){
             type = await getEmployeeType();
         }
@@ -111,7 +112,7 @@ async function run(){
 
         let data = await getStandardQuestions(type.role);
 
-        // and to create objects for each team member (using the correct classes as blueprints!)
+    // and to create objects for each team member (using the correct classes as blueprints!)
         switch(type.role){
             case 'Engineer':
                 employees.push( new Engineer(data.name, data.id, data.email, data.github));
@@ -124,7 +125,7 @@ async function run(){
                 break;
         }
 
-        //ask if they want to add more users.  End loop if 'No'.
+    // If the addMorePrompt function is answered "no", the loop ends.
         var getMore = await addMorePrompt();
     } while (getMore.confirm!= "No");
 
@@ -140,8 +141,8 @@ async function run(){
     // After you have your html, you're now ready to create an HTML file using the HTML
     // returned from the `render` function. Now write it to a file named `team.html` in the
     // `output` folder. You can use the variable `outputPath` above target this location.
-    // Hint: you may need to check if the `output` folder exists and create it if it
-    // does not.
+
+    // try and catch serve to report errors. See 09-NodeJS activities 38 and 40 for examples.
     try{
         if (!fs.existsSync(OUTPUT_DIR)) {
             fs.mkdirSync(OUTPUT_DIR);
@@ -157,7 +158,7 @@ async function run(){
 
 }
 
-// Line below causes code to actually run.
+// Line below causes code to actually run, by triggering the above async function. (IMPORTANT)
 run();
 
 
