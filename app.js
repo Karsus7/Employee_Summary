@@ -29,9 +29,9 @@ function getEmployeeType(){
     ]);
 }
 
-// each employee type (manager, engineer, or intern) has slightly different information
+// Each employee type (manager, engineer, or intern) has different information required. (See tests) 
 function getStandardQuestions(role){
-    //standard questions to ask all employees. See Employee.js/Employee.test.js
+// Standard questions to ask all employees. See Employee.js/Employee.test.js
     const standardQuestions = [
         {
             type:'input',
