@@ -1,5 +1,4 @@
-//"force starting with one manager, then come back to add as many interns and engineers as needed"
-
+// This is the actual program. First, there must be a manager, then the user may add as many interns and engineers as they want.
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -7,14 +6,14 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+// The two lines below explain the need for the output folder, and the team.html file.
+// team.html is where the answers to the questions are displayed.
 const OUTPUT_DIR = path.resolve(__dirname, "output")
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-
+//The line below connects this to the htmlRenderer.js file.
 const render = require("./lib/htmlRenderer");
 
 
-/* # Functions 
-#################################################*/
 
 function getEmployeeType(){
     return inquirer.prompt([
@@ -158,9 +157,7 @@ async function run(){
 
 }
 
-
-/* # Main 
-#################################################*/
+// Line below causes code to actually run.
 run();
 
 
